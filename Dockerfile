@@ -15,8 +15,8 @@ RUN sed 's/listen 80;/listen 8080;\n  server_name radar;/g' /src/build-your-own-
 RUN mkdir -p  /src/build-your-own-radar/dist/files && \
     chown -R 1001:1001 /src/build-your-own-radar/dist/ /src/build-your-own-radar/default.conf
 
-FROM bitnami/nginx:latest
-RUN mkdir -p /bitnami/nginx/conf/vhosts
+FROM bitnami/nginx:1.23.2
+RUN mkdir -p /bitnami/nginx/conf/vhosts # get rid of nginx warning
 
 COPY --from=builder /src/build-your-own-radar/dist/ /opt/build-your-own-radar/
 COPY --from=builder /src/build-your-own-radar/default.conf /opt/bitnami/nginx/conf/server_blocks/
